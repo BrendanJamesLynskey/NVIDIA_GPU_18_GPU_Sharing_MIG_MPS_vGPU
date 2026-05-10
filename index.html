@@ -856,7 +856,7 @@
         </div>
         <div class="diagram-panel accent-border">
             <h4>MPS &mdash; Software Multiplexing</h4>
-            <p>One CUDA context, multiple client processes share SMs cooperatively via a daemon. <strong>No memory isolation</strong>; latency-friendly for many small kernels. Available since Volta on every modern card.</p>
+            <p>One CUDA context, multiple client processes share SMs cooperatively via a daemon. <strong>No memory isolation</strong>; latency-friendly for many small kernels. User-space MPS has shipped since CUDA 7; Volta added hardware-accelerated MPS with per-client priority &amp; limits.</p>
         </div>
         <div class="diagram-panel accent-border">
             <h4>vGPU &mdash; VM-Level Virtualisation</h4>
@@ -1037,7 +1037,7 @@
     <ul>
         <li><strong>Lower latency than time-slicing</strong> &mdash; no CUDA context switch between clients.</li>
         <li><strong>Concurrent kernel execution</strong> &mdash; small kernels from different clients fill the SM array. Inference servers with many small models love this.</li>
-        <li><strong>Universal availability</strong> &mdash; works since Volta; supported on every modern card including consumer, where MIG isn't an option.</li>
+        <li><strong>Universal availability</strong> &mdash; user-space MPS exists on virtually every CUDA GPU; Volta and later add hardware-accelerated MPS with per-client priority and SM-percentage limits. Includes consumer cards where MIG isn't an option.</li>
     </ul>
 
     <h3>Loses</h3>
@@ -1107,7 +1107,7 @@
                 <tr><td>Memory isolation</td><td><span class="badge ok">hard</span></td><td><span class="badge bad">none</span></td><td><span class="badge ok">hard between slices</span></td></tr>
                 <tr><td>Bandwidth isolation</td><td><span class="badge ok">hard</span></td><td><span class="badge warn">cooperative</span></td><td><span class="badge ok">hard between slices</span></td></tr>
                 <tr><td>Concurrent kernels</td><td><span class="badge warn">across slices, not within</span></td><td><span class="badge ok">within client set</span></td><td><span class="badge ok">both axes</span></td></tr>
-                <tr><td>Cards supported</td><td>A100, A30, H100, H200, B200</td><td>any since Volta</td><td>MIG-capable only</td></tr>
+                <tr><td>Cards supported</td><td>A100, A30, H100, H200, B200</td><td>virtually all CUDA GPUs (HW-accelerated since Volta)</td><td>MIG-capable only</td></tr>
                 <tr><td>License</td><td>included</td><td>included</td><td>included</td></tr>
                 <tr><td>Best for</td><td>multi-tenant SaaS</td><td>one team, many procs</td><td>multi-tenant SaaS with rich tenants</td></tr>
             </tbody>
