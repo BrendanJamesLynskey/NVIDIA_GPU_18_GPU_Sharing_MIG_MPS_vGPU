@@ -760,7 +760,7 @@
 <header class="hero">
     <div class="series-label">NVIDIA GPU Architectures Series — Presentation 18</div>
     <h1><span class="accent">Sharing the GPU</span> &mdash; MIG, MPS, vGPU, and Kubernetes Time-Slicing</h1>
-    <p class="subtitle">A 96-GB H100 sitting at 12% utilisation is a $30k mistake. Walk through every way NVIDIA lets multiple workloads share one GPU &mdash; hardware-partitioned MIG, software-multiplexed MPS, hypervisor-level vGPU, and Kubernetes time-slicing &mdash; with their isolation, performance, and licensing trade-offs.</p>
+    <p class="subtitle">An 80-GB H100 sitting at 12% utilisation is a $30k mistake. Walk through every way NVIDIA lets multiple workloads share one GPU &mdash; hardware-partitioned MIG, software-multiplexed MPS, hypervisor-level vGPU, and Kubernetes time-slicing &mdash; with their isolation, performance, and licensing trade-offs.</p>
 
     <div class="tags">
         <span class="tag">MIG</span><span class="tag">MPS</span><span class="tag">vGPU</span>
@@ -814,7 +814,7 @@
     <div class="diagram-grid cols-2">
         <div class="diagram-panel accent-border">
             <h4>One tenant, one H100</h4>
-            <p>96 GB HBM, ~3.35 TB/s bandwidth, 132 SMs. Llama-3 7B FP16 = ~14 GB weights + ~4 GB KV at modest concurrency. <strong>~12% SM utilisation, ~18 GB used</strong>. The other 78 GB is paying rent and doing nothing. At a $30k street price the idle slack alone is $24k of capital.</p>
+            <p>80 GB HBM, ~3.35 TB/s bandwidth, 132 SMs. Llama-3 7B FP16 = ~14 GB weights + ~4 GB KV at modest concurrency. <strong>~12% SM utilisation, ~18 GB used</strong>. The other 62 GB is paying rent and doing nothing. At a $30k street price the idle slack alone is ~$23k of capital.</p>
         </div>
         <div class="diagram-panel accent-border">
             <h4>Four tenants, one H100</h4>
@@ -852,7 +852,7 @@
     <div class="diagram-grid cols-2">
         <div class="diagram-panel accent-border">
             <h4>MIG &mdash; Hardware Partitioning</h4>
-            <p>Independent SM/L2/HBM slices, dedicated memory controllers. Each slice is a separate <em>physical</em> GPU instance to the OS. <strong>True isolation</strong>: noisy-neighbour impossible. A100, A30, H100, H200, B200 only.</p>
+            <p>Independent SM/L2/HBM slices, dedicated memory controllers. Each slice is a separate <em>physical</em> GPU instance to the OS. <strong>True isolation</strong>: noisy-neighbour impossible. A100, A30, H100, H200, B200, plus RTX PRO 6000 Blackwell (up to 4 instances).</p>
         </div>
         <div class="diagram-panel accent-border">
             <h4>MPS &mdash; Software Multiplexing</h4>
@@ -1107,7 +1107,7 @@
                 <tr><td>Memory isolation</td><td><span class="badge ok">hard</span></td><td><span class="badge bad">none</span></td><td><span class="badge ok">hard between slices</span></td></tr>
                 <tr><td>Bandwidth isolation</td><td><span class="badge ok">hard</span></td><td><span class="badge warn">cooperative</span></td><td><span class="badge ok">hard between slices</span></td></tr>
                 <tr><td>Concurrent kernels</td><td><span class="badge warn">across slices, not within</span></td><td><span class="badge ok">within client set</span></td><td><span class="badge ok">both axes</span></td></tr>
-                <tr><td>Cards supported</td><td>A100, A30, H100, H200, B200</td><td>virtually all CUDA GPUs (HW-accelerated since Volta)</td><td>MIG-capable only</td></tr>
+                <tr><td>Cards supported</td><td>A100, A30, H100, H200, B200, RTX PRO 6000 Blackwell</td><td>virtually all CUDA GPUs (HW-accelerated since Volta)</td><td>MIG-capable only</td></tr>
                 <tr><td>License</td><td>included</td><td>included</td><td>included</td></tr>
                 <tr><td>Best for</td><td>multi-tenant SaaS</td><td>one team, many procs</td><td>multi-tenant SaaS with rich tenants</td></tr>
             </tbody>
